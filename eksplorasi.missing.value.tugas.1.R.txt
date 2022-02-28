@@ -1,0 +1,114 @@
+library(VIM)
+library(mice)
+attach(tao)
+
+#######################################################
+# Untuk tugas ini digunakan data tao yang terdapat    #
+# pada paket VIM                                      #
+#######################################################
+
+# Pertanyaan 1:
+# Jelaskan hasil yang diperoleh dari penggunaan perintah
+# berikut.
+
+data(tao, package = "VIM")
+str(tao)
+summary(tao)
+#######################################################
+
+#######################################################
+# Pembuatan tabulasi untuk identifikasi pola data     #
+# hilang                                              #
+#######################################################
+# Pertanyaan 2:
+# Berikan interpretasi untuk hasil yang diperoleh
+# untuk R script berikut.
+
+md.pattern(tao)
+#######################################################
+
+
+#######################################################
+# Penggunaan fungsi aggr() untuk identifikasi pola    #
+# data hilang                                         #
+#######################################################
+# Pertanyaan 3:
+# Jelaskan 2 perintah pada R script berikut.
+
+aggr(tao)
+aggr(tao,prop=FALSE, numbers=TRUE) 
+
+# Pertanyaan 4:
+# Jelaskan interpretasi dari hasil yang diperoleh 
+# dari penggunaan fungsi aggr() berikut ini.
+aggr(tao,prop=FALSE, numbers=TRUE) 
+
+#######################################################
+
+#######################################################
+# Penggunaan fungsi matrixplot() untuk identifikasi   #
+# pola data hilang                                    #
+#######################################################
+
+# Pertanyaan 5:
+# Jelaskan 3 perintah pada R script berikut.
+
+# Pertanyaan 6:
+# Dari 3 perintah pada R script berikut, menurut
+# Anda untuk data tao ini perintah yang mana yang
+# paling mudah untuk interpretasi?
+# Jelaskan jawaban Anda
+
+matrixplot(tao)
+matrixplot(tao,sortby = "Latitude")
+matrixplot(tao,sortby = "Sea.Surface.Temp")
+
+# Pertanyaan 7:
+# Jelaskan perintah pada R script pada empat baris
+# perintah berikut.
+
+tao.newdata.2 <- tao[order(Latitude,Longitude),] 
+matrixplot(tao.newdata.2)
+
+tao.newdata.3 <- tao[order(Year,Longitude,Latitude),] 
+matrixplot(tao.newdata.3)
+
+# Pertanyaan 8:
+# Jelaskan interpretasi dari hasil yang diperoleh 
+# dari penggunaan fungsi matrixplot() berikut ini.
+tao.newdata.3 <- tao[order(Year,Longitude,Latitude),] 
+matrixplot(tao.newdata.3)
+
+#######################################################
+
+
+#######################################################
+# Penggunaan fungsi marginplot() untuk identifikasi   #
+# pola data hilang                                    #
+#######################################################
+# Pertanyaan 9:
+# Jelaskan interpretasi dari hasil yang diperoleh 
+# dari penggunaan fungsi matrixplot() berikut ini.
+marginplot(tao[c("Air.Temp","Humidity")], pch=c(20),
+           col=c("darkgray", "red", "blue"))
+
+#######################################################
+
+
+######################################################
+# Penggunaan korelasi                                #
+######################################################
+# Pertanyaan 10:
+# Jelaskan interpretasi dari hasil yang diperoleh 
+# dari penggunaan R script berikut ini.
+x <- as.data.frame(abs(is.na(tao)))
+head(tao, n=5)
+head(x, n=5)
+y <- x[which(apply(x,2,sum)>0)]
+head(y)
+cor(y)
+cor(y,tao)
+######################################################
+
+detach(tao)
+
